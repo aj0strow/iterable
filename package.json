@@ -1,0 +1,7 @@
+{
+  "name": "iterable",
+  "private": true,
+  "scripts": {
+    "test": "node iterable-test.js"
+  }
+}
