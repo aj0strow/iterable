@@ -25,12 +25,8 @@ exports.thread = thread
 
 function append (iterable) {
   return function * (input) {
-    for (var x of input) {
-      yield x
-    }
-    for (var x of iterable) {
-      yield x
-    }
+    yield * input
+    yield * iterable
   }
 }
 
@@ -40,12 +36,8 @@ exports.append = append
 
 function prepend (iterable) {
   return function * (input) {
-    for (var x of iterable) {
-      yield x
-    }
-    for (var x of input) {
-      yield x
-    }
+    yield * iterable
+    yield * input
   }
 }
 
@@ -117,7 +109,7 @@ function chunk (f) {
     var chunk = [], prev, next
     for (var x of input) {
       next = f(x)
-      if (chunk.length && next == prev) {
+      if (chunk.length && next != prev) {
         yield chunk
         chunk = []
       }
@@ -144,10 +136,7 @@ function flatten (max) {
     }
     else {
       for (var x of input) {
-        var iterable = flatten(x, depth + 1)
-        for (var y of iterable) {
-          yield y
-        }
+        yield * flatten(x, depth + 1)
       }
     }
   }

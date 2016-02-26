@@ -97,7 +97,7 @@ test("filter", function () {
 test("chunk", function () {
   var input = [ 1, 2, 3, 4, 5 ]
   var index = 0
-  var pairs = iterable.chunk(x => Math.floor(++index / 2))
+  var pairs = iterable.chunk(x => Math.floor(index++ / 2))
   var output = toArray(pairs(input))
   eq(output, [ [1, 2], [3, 4], [5] ])
 })
